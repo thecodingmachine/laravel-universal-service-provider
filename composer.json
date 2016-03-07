@@ -1,0 +1,25 @@
+{
+    "name": "thecodingmachine/laravel-universal-service-provider",
+    "type": "library",
+    "description": "This Laravel service provider allows Laravel applications to use service providers as defined in container-interop/service-provider",
+    "keywords": ["PSR-11", "Laravel", "container-interop", "service-provider"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "David Négrier"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "laravel/framework": "^5.0",
+        "container-interop/service-provider": "~0.2.0",
+        "puli/cli": "^1.0",
+        "puli/discovery": "^1.0",
+        "puli/composer-plugin": "^1.0",
+        "acclimate/container": "^1.0",
+        "mnapoli/simplex": "dev-master"
+    },
+    "autoload": {
+        "psr-4": { "TheCodingMachine\\Laravel\\": "src/" }
+    }
+}
