@@ -78,11 +78,13 @@ class ContainerInteropBridgeServiceProvider extends ServiceProvider
 
 
         foreach ($serviceProviders as $serviceProvider) {
-            if (!is_string($serviceProvider) || !class_exists($serviceProvider)) {
-                throw new ServiceProviderBridgeException('Error in parameter "app.container-interop-service-providers" or in Puli binding: providers should be fully qualified class names. Invalid class name passed: "'.$serviceProvider.'"');
+            if ($serviceProvider instanceof \Interop\Container\ServiceProvider) {
+                $this->simplex->register($serviceProvider);
+            } elseif (!is_string($serviceProvider) || !class_exists($serviceProvider)) {
+                throw new ServiceProviderBridgeException('Error in parameter "app.container-interop-service-providers" or in Puli binding: providers should be an instance of \Interop\Container\ServiceProvider or a fully qualified class name. Invalid class name passed: "'.$serviceProvider.'"');
+            } else {
+                $this->simplex->register(new $serviceProvider);
             }
-
-            $this->simplex->register($serviceProvider);
         }
 
         return $this->simplex;

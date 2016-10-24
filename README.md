@@ -12,7 +12,22 @@ Add the package in composer:
 composer require thecodingmachine/laravel-universal-service-provider ^1.0
 ```
 
-Add `\TheCodingMachine\Laravel\PuliBundle` and `\TheCodingMachine\Laravel\ContainerInteropBridgeServiceProvider` in your `app.php` file.
+Add `\TheCodingMachine\Laravel\PuliServiceProvider` and `\TheCodingMachine\Laravel\ContainerInteropBridgeServiceProvider` in your `config/app.php` file.
+
+**config/app.php**
+```php
+<?php
+
+return [
+    //...
+    'providers' => [
+        //...
+        TheCodingMachine\Laravel\PuliServiceProvider::class,
+        TheCodingMachine\Laravel\ContainerInteropBridgeServiceProvider::class
+    ],
+    //...
+];      
+```
 
 ### Usage using Puli
 

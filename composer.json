@@ -17,7 +17,7 @@
         "puli/discovery": "^1.0",
         "puli/composer-plugin": "^1.0",
         "acclimate/container": "^1.0",
-        "mnapoli/simplex": "dev-master"
+        "mnapoli/simplex": "^0.2.1"
     },
     "autoload": {
         "psr-4": { "TheCodingMachine\\Laravel\\": "src/" }
