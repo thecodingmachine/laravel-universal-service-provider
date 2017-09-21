@@ -2,14 +2,14 @@
 namespace TheCodingMachine\Laravel;
 
 use Illuminate\Container\Container as LaravelContainerInterface;
-use Interop\Container\ContainerInterface as AcclimateContainerInterface;
+use Psr\Container\ContainerInterface;
 use TheCodingMachine\Laravel\Exception\ContainerException;
 use TheCodingMachine\Laravel\Exception\NotFoundException;
 
 /**
  * An adapter from a Laravel Container to the standardized ContainerInterface
  */
-class LaravelContainerAdapter implements AcclimateContainerInterface
+class LaravelContainerAdapter implements ContainerInterface
 {
     /**
      * @var LaravelContainerInterface A Laravel Container

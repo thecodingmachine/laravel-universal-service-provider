@@ -10,14 +10,12 @@
         }
     ],
     "require": {
-        "php": ">=5.5.0",
+        "php": ">=7.1",
         "laravel/framework": "^5.0",
-        "container-interop/service-provider": "~0.3.0",
-        "puli/cli": "^1.0",
-        "puli/discovery": "^1.0",
-        "puli/composer-plugin": "^1.0",
-        "acclimate/container": "^1.0",
-        "mnapoli/simplex": "^0.2.1"
+        "acclimate/container": "^2",
+        "container-interop/service-provider": "~0.4.0",
+        "thecodingmachine/discovery": "^1.2",
+        "mnapoli/simplex": "^0.3.0"
     },
     "autoload": {
         "psr-4": { "TheCodingMachine\\Laravel\\": "src/" }
