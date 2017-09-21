@@ -12,7 +12,7 @@ Add the package in composer:
 composer require thecodingmachine/laravel-universal-service-provider ^1.0
 ```
 
-Add `\TheCodingMachine\Laravel\PuliServiceProvider` and `\TheCodingMachine\Laravel\ContainerInteropBridgeServiceProvider` in your `config/app.php` file.
+Add `\TheCodingMachine\Laravel\ContainerInteropBridgeServiceProvider` in your `config/app.php` file.
 
 **config/app.php**
 ```php
@@ -22,21 +22,20 @@ return [
     //...
     'providers' => [
         //...
-        TheCodingMachine\Laravel\PuliServiceProvider::class,
         TheCodingMachine\Laravel\ContainerInteropBridgeServiceProvider::class
     ],
     //...
 ];      
 ```
 
-### Usage using Puli
+### Usage using thecodingmachine/discovery
 
-The bridge will use Puli to automatically discover the universal service providers of your project. If the service provider you are loading publishes itself
-on Puli, then you are done. The services declared in the service provider are available in the Laravel container!
+The bridge will use thecodingmachine/discovery to automatically discover the universal service providers of your project. If the service provider you are loading publishes itself
+on thecodingmachine/discovery, then you are done. The services declared in the service provider are available in the Laravel container!
 
 ### Usage using manual declaration
 
-If the service provider you are using does not publishes itself using Puli, you will have to declare it manually in the `container-interop-service-providers` key of your `config/app.php' file.
+If the service provider you are using does not publishes itself using thecodingmachine/discovery, you will have to declare it manually in the `container-interop-service-providers` key of your `config/app.php' file.
 
 Set the service provider fully qualified class name in the parameter `container-interop-service-providers`:
 
@@ -55,9 +54,9 @@ return [
 
 Now, you can do : `$app->make('glide')`
 
-## Disabling Puli discovery
+## Disabling discovery
 
-You can disable Puli discovery using the `container-interop-service-provider-enable-puli` setting:
+You can disable discovery using the `container-interop-service-provider-enable-discovery` setting:
 
 **config/app.php**
 ```php
@@ -66,7 +65,7 @@ use \GlideModule\GlideServiceProvider;
 
 return [
   ...
-  'container-interop-service-provider-enable-puli' => false
+  'container-interop-service-provider-enable-discovery' => false
 ];
 ```
 

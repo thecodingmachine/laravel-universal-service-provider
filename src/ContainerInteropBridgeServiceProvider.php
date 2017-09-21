@@ -3,10 +3,8 @@
 namespace TheCodingMachine\Laravel;
 
 use Acclimate\Container\CompositeContainer;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
-use Puli\Discovery\Api\Discovery;
-use Puli\Discovery\Binding\ClassBinding;
+use Interop\Container\ServiceProviderInterface;
 use Simplex\Container;
 
 class ContainerInteropBridgeServiceProvider extends ServiceProvider
@@ -45,22 +43,12 @@ class ContainerInteropBridgeServiceProvider extends ServiceProvider
 
         $serviceProviders = [];
 
-        $enablePuli = config('app.container-interop-service-provider-enable-puli', true);
+        $enableDiscovery = config('app.container-interop-service-provider-enable-discovery', true);
 
-        if ($enablePuli) {
-            try {
-                $discovery = $this->app->make(Discovery::class);
-            } catch (BindingResolutionException $e) {
-                throw new ServiceProviderBridgeException('Could not instantiate Puli discovery. Did you think about adding the PuliDiscovery service provider to the list of Laravel service providers?', 0, $e);
-            }
+        if ($enableDiscovery) {
+            $discovery = \TheCodingMachine\Discovery\Discovery::getInstance();
 
-            $bindings = $discovery->findBindings('container-interop/service-provider');
-
-            foreach ($bindings as $binding) {
-                if ($binding instanceof ClassBinding) {
-                    $serviceProviders[] = $binding->getClassName();
-                }
-            }
+            $serviceProviders = $discovery->get(ServiceProviderInterface::class);
         }
 
         $manualServiceProviders = config('app.container-interop-service-providers', []);
@@ -78,10 +66,10 @@ class ContainerInteropBridgeServiceProvider extends ServiceProvider
 
 
         foreach ($serviceProviders as $serviceProvider) {
-            if ($serviceProvider instanceof \Interop\Container\ServiceProvider) {
+            if ($serviceProvider instanceof \Interop\Container\ServiceProviderInterface) {
                 $this->simplex->register($serviceProvider);
             } elseif (!is_string($serviceProvider) || !class_exists($serviceProvider)) {
-                throw new ServiceProviderBridgeException('Error in parameter "app.container-interop-service-providers" or in Puli binding: providers should be an instance of \Interop\Container\ServiceProvider or a fully qualified class name. Invalid class name passed: "'.$serviceProvider.'"');
+                throw new ServiceProviderBridgeException('Error in parameter "app.container-interop-service-providers" or in thecodingmachine/discovery configuration: providers should be an instance of \Interop\Container\ServiceProviderInterface or a fully qualified class name. Invalid class name passed: "'.$serviceProvider.'"');
             } else {
                 $this->simplex->register(new $serviceProvider);
             }
